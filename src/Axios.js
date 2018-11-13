@@ -8,4 +8,8 @@ const axiosRequestIngredients = Axios.create({
     baseURL:'https://burgerproject-36842.firebaseio.com/ingredients.json'
 });
 
-export {axiosPost,axiosRequestIngredients};
+const axiosRequestOrders = Axios.create({
+    baseURL: 'https://burgerproject-36842.firebaseio.com/orders.json'
+});
+
+export {axiosPost,axiosRequestIngredients, axiosRequestOrders};

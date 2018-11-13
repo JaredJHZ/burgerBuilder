@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Redirect} from 'react-router';
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -110,34 +110,23 @@ class BurgerBuilder extends Component {
 
     continueHandler = () => {
        
-        this.setState({loading:true});
-        let order = {
-            customer: {
-                address: 'adsasd',
-                country:'Mexico',
-                name:'jared',
-                zipcode:'123123'
-            },
-            deliverMethod: 'fastest',
-            email:'asdasd@adsasd.com',
-            ingredients:this.state.ingredients,
-            price:this.state.totalPrice
-        };
-        axiosPost.post('',order)
-            .then(
-                (data) => {
-                    this.setState({...this.state, loading:false, purchasable:false});
-
-                    
-                }
-            ).catch ( (error)=> {
-                this.setState({...this.state, loading:false, purchasable:false})
-            } )
-     
+        const queryParams = [];
+        for (let ingredient in  this.state.ingredients) {
+            queryParams.push(encodeURIComponent(ingredient) + '=' + this.state.ingredients[ingredient]);
+        }
+        queryParams.push('price='+this.state.totalPrice);
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname:'/order',
+            search:'?'+queryString
+        });
+   
     }
     
 
     render () {
+
+        
      
         const disabledInfo = {
             ...this.state.ingredients
@@ -179,6 +168,7 @@ class BurgerBuilder extends Component {
         }
         return (
             <Aux>
+               
                 <Modal show={this.state.purchasable} modalClosed={this.purchaseCancelHandler}>
                     {content}
                 </Modal>

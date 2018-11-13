@@ -15,9 +15,16 @@
     }
 }
 
-@media (min-width: 1000px) and (min-height: 650px) {
+@media (min-width: 800px) and (min-height: 650px) {
     .Burger {
-        width: 700px;
+        width: 80%;
+        height: 390px;
+    }
+}
+
+@media (min-width:1000px){
+    .Burger {
+        width: 500px;
         height: 390px;
     }
 }
